@@ -52,7 +52,11 @@ RUN if getent passwd $USER_UID > /dev/null; then userdel -r $(getent passwd $USE
      && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
      && chmod 0440 /etc/sudoers.d/$USERNAME
 
-#RUN ./scripts/software_setup_ece5332.bash
+# This script installs the ptlnx environment package dependencies
+ADD ../scripts/software_setup_ece5532.sh /tmp/software_setup_ece5532.sh
+
+RUN ./tmp/software_setup_ece5532.sh
+
 USER $USERNAME
 
 WORKDIR /home/${USERNAME}
